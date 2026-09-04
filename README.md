@@ -45,8 +45,7 @@ _your journal reference_
 | `step_one.py` | Script to run the first part of my experiment | `python3 step_one.py -f /path/to/inputdata/file_one.csv` |
 | `step_two.py` | Script to run the second part of my experiment | `python3 step_two.py -o /path/to/my/outputdir` |
 
-4. Download and unzip the [output data](#output-data) from my experiment 
-5. Run the following scripts in the `workflow` directory to compare my outputs to those from the publication
+4. Download and unzip the [output data](#output-data) from my experiment to compare outputs to those from the publication
 
 | Script Name | Description | How to Run |
 | --- | --- | --- |
