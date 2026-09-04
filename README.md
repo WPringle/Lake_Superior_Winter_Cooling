@@ -2,9 +2,7 @@
 
 # Pringle-etal_2026_GRL
 
-<p align="center">
-  <a href="https://compass.pnnl.gov/GLM/COMPASSGLM"><img alt="LakeSuperior" src="figures/lake_superior_map.pdf" width="75%"></a>
-</p>
+![superior_map](figures/lake_superior_map.png)
 
 **Drivers of Deep-Water Cooling and Model Bias in Lake Superior**
 
