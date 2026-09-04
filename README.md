@@ -2,6 +2,10 @@
 
 # Pringle-etal_2026_GRL
 
+<p align="center">
+  <a href="https://compass.pnnl.gov/GLM/COMPASSGLM"><img alt="LakeSuperior" src="figures/lake_superior_map.pdf" width="75%"></a>
+</p>
+
 **Drivers of Deep-Water Cooling and Model Bias in Lake Superior**
 
 William J. Pringle<sup>1\*</sup>, [GLEAM Team 1](https://compass.pnnl.gov/GLM/Team)<sup>1,2,3</sup>
