@@ -31,14 +31,11 @@ _your journal reference_
 - Pringle, W. J. (2026). My output dataset name [Data set]. Zenodo. https://doi.org/some-doi-number
 
 ## Contributing modeling software
-| Model | Version | Github | Documentation |
+| Model | Version | Code | Documentation |
 |-------|---------|-----------------|-----|
 | Oceananigans.jl | [0.95.3](https://github.com/CliMA/Oceananigans.jl/releases/tag/v0.95.3) | [Github](https://github.com/CliMA/Oceananigans.jl) | [HomePage](https://clima.github.io/OceananigansDocumentation/) |
 
 ## Reproduce my experiment
-Fill in detailed info here or link to other documentation to thoroughly walkthrough how to use the contents of this repository to reproduce your experiment. Below is an example.
-
-
 1. Install the software components required to conduct the experiment from [contributing modeling software](#contributing-modeling-software)
 2. Download and install the supporting [input data](#input-data) required to conduct the experiment
 3. Run the following scripts in the `workflow` directory to re-create this experiment:
