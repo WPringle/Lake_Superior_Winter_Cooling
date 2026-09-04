@@ -25,7 +25,7 @@ _your journal reference_
 
 ### Input data
 - Austin, J., & Elmer, C (2023). Lake Superior moored temperature and currents, Sep 2005-May 2015 [Data set]. University Digital Conservancy. https://doi.org/10.13020/zqw9-mk81
-- Spence et al. GLEN surface flux data from the Stannard Rock site [Data set]. https://doi.org/??
+- Spence, C., Lenters, J., & Nicholls, E. (2024). US-GL1: Stannard Rock, 2008 - 2022 [Data set]. Ameriflux. https://ameriflux.lbl.gov/sites/siteinfo/US-GL1
 
 ### Output data
 - Pringle, W. J. (2026). My output dataset name [Data set]. Zenodo. https://doi.org/some-doi-number
