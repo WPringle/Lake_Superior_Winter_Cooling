@@ -2,7 +2,7 @@
 
 # Pringle-etal_2026_GRL
 
-**your Paper Title here (once published, include a link to the text)**
+**Drivers of Deep-Water Cooling and Model Bias in Lake Superior**
 
 William J. Pringle<sup>1\*</sup>, [GLEAM Team 1](https://compass.pnnl.gov/GLM/Team)<sup>1,2,3</sup>
 
@@ -13,7 +13,7 @@ William J. Pringle<sup>1\*</sup>, [GLEAM Team 1](https://compass.pnnl.gov/GLM/Te
 \* corresponding author:  wpringle@anl.gov
 
 ## Abstract
-_your abstract here_
+The transition from fall overturn to winter stratification influences subsequent ice formation and spring warming timing in deep dimictic lakes. We investigate the drivers of modeled deep-water temperature bias during this transition in Lake Superior using observations from two subsurface moorings and high-quality surface flux measurements. Large-eddy simulations (LES), a $k-\varepsilon$ turbulence-closure column model, and an analytical bottom-temperature model are evaluated over 60-day winter periods. At the 212-m Eastern Mooring, modeled temperature profiles and bottom-temperature evolution generally agree well with observations, although the hydrodynamic models, particularly LES, underestimate mixing. Including thermobaricity and accurate wind direction improves the simulated thermal structure and reduces deep-water warm bias. At the 384-m Southern Mooring, substantial warm biases persist, indicating that surface forcing and vertical mixing alone are insufficient. Horizontal processes associated with nearby steep bathymetry may be important. Results highlight the sensitivity of winter stratification to wind forcing, thermobaricity, and three-dimensional lake dynamics.
 
 ## Journal reference
 _your journal reference_
