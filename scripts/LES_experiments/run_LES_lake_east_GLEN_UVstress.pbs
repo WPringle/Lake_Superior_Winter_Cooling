@@ -13,7 +13,7 @@ cd ${PBS_O_WORKDIR}
 mkdir -p logs
 
 # Julia setup
-JULIA=/soft/applications/julia/julia_binaries/julia-1.10/bin/julia
+JULIA=JULIA_BIN
 PROJECT_DIR=PROJ_DIR
 
 # an environment for CUDA.jl for the CUDA-13 driver on A100 nodes

@@ -286,7 +286,7 @@ const f₀  = 2 * Ω * sind(lat)
 # spline in depth, constant extrapolation outside the sensor range).  For winter
 # 2010 the sensor depths are lifted up 20 m (dep − 20) to correct the SMS09h `dep`
 # offset; winter 2011 is used unadjusted.
-const OBS_DIR    = "/lus/eagle/projects/COMPASS-GLM/wpringle/Lake_Julia_Runs/Austin2023"
+const OBS_DIR    = "./data/Austin2023"
 const DEP_OFFSET = winter_year == 2010 ? 20.0 : 0.0   # metres to lift sensor depths up
 @info "Southern-mooring IC: depth offset = $DEP_OFFSET m (dep → dep − offset)"
 
