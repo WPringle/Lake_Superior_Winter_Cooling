@@ -70,10 +70,9 @@ function les_file_sm_lookup(year)
     return nothing
 end
 
-const GLEN_FILE = "/lcrc/project/HSOFS_Ensemble/COMPASS_GLM/GLEN/" *
-                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc"
-const CSV_FILE  = joinpath(@__DIR__, "..", "figure_data",
-                          "lake_superior_eastern_mooring",
+const GLEN_FILE = joinpath(@__DIR__, "..", "data", "GLEN",
+                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc")
+const CSV_FILE  = joinpath(@__DIR__, "..", "data",
                           "lake_superior_eastern_mooring_winter_start_dates.csv")
 
 function read_isothermal_date(csv_file, year)

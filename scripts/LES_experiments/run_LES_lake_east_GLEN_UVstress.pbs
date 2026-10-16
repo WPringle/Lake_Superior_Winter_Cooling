@@ -23,7 +23,7 @@ LES_ENV=${PROJECT_DIR}/LES_experiments/les_env
 export JULIA_LOAD_PATH="${LES_ENV}:@stdlib"
 
 # Output directory
-OUTPUT_DIR=${PROJECT_DIR}/data/LES_output/eastern_mooring_GLEN
+OUTPUT_DIR=${PROJECT_DIR}/data/LES_outputs/eastern_mooring_GLEN
 mkdir -p ${OUTPUT_DIR}
 
 # Instantiate project dependencies once before launching experiments

@@ -103,7 +103,8 @@ const SRC_TAG = FORCING_SOURCE == "direct" ? "" : "_coare_wind"    # filename ta
 @info "Forcing source = $FORCING_SOURCE"
 
 # ── CSV: look up isothermal (start) date ──────────────────────────────────────
-const CSV_FILE = "./data/lake_superior_eastern_mooring_winter_start_dates.csv"
+const CSV_FILE = joinpath(@__DIR__, "..", "..", "data",
+                          "lake_superior_eastern_mooring_winter_start_dates.csv")
 
 function read_isothermal_date(csv_file, year)
     return open(csv_file) do f
@@ -151,7 +152,8 @@ const SW_ZETA2 = 23.0   # m — e-folding depth of the long (visible) band
 # ── Load GLEN half-hourly data ────────────────────────────────────────────────
 # Gap-filled product: momentum/heat fluxes are provided directly.  Choose between
 # the measured (`direct`) and COARE-bulk-from-wind (`coare_wind`) flux variants.
-const GLEN_FILE = "./data/US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc"
+const GLEN_FILE = joinpath(@__DIR__, "..", "..", "data", "GLEN",
+                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc")
 
 # Variable names that differ between the two forcing sources.
 const VAR_SUFFIX = FORCING_SOURCE == "direct" ? "" : "_coare_wind"
@@ -509,7 +511,7 @@ else
     closure_specs
 end
 
-const OUTPUT_PATH = joinpath(@__DIR__, "..", "data", "TURB_outputs",
+const OUTPUT_PATH = joinpath(@__DIR__, "..", "..", "data", "TURB_outputs",
                              "eastern_mooring_GLEN_forced", "winter$(winter_year)")
 
 for (closure_name, make_closure) in active_specs

@@ -197,7 +197,8 @@ Random.seed!(123)
 ##### CSV: look up isothermal (start) date  (EASTERN mooring dates — see docstring)
 #####
 
-const CSV_FILE = "./data/lake_superior_eastern_mooring_winter_start_dates.csv"
+const CSV_FILE = joinpath(@__DIR__, "..", "..", "data",
+                          "lake_superior_eastern_mooring_winter_start_dates.csv")
 
 function read_isothermal_date(csv_file, year)
     return open(csv_file) do f
@@ -286,7 +287,7 @@ const f₀  = 2 * Ω * sind(lat)
 # spline in depth, constant extrapolation outside the sensor range).  For winter
 # 2010 the sensor depths are lifted up 20 m (dep − 20) to correct the SMS09h `dep`
 # offset; winter 2011 is used unadjusted.
-const OBS_DIR    = "./data/Austin2023"
+const OBS_DIR    = joinpath(@__DIR__, "..", "..", "data", "Austin2023")
 const DEP_OFFSET = winter_year == 2010 ? 20.0 : 0.0   # metres to lift sensor depths up
 @info "Southern-mooring IC: depth offset = $DEP_OFFSET m (dep → dep − offset)"
 
@@ -371,7 +372,8 @@ end
 # the measured (`direct`) and COARE-bulk-from-wind (`coare_wind`) flux variants.
 # wind_direction is shared (no *_coare_wind variant): coare_wind changes only the
 # stress magnitude, not its direction.
-const GLEN_FILE = "./data/US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc"
+const GLEN_FILE = joinpath(@__DIR__, "..", "..", "data", "GLEN",
+                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc")
 
 # Variable names that differ between the two forcing sources.
 const VAR_SUFFIX = FORCING_SOURCE == "direct" ? "" : "_coare_wind"

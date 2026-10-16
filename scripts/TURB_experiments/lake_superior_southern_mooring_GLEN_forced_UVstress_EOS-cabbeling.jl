@@ -159,7 +159,8 @@ const EOS_TAG = Dict("cabbeling"            => "_EOScabbeling",
 # clock time as the Eastern Mooring runs, using the Southern Mooring's own
 # *observed* — generally still-stratified — profile as the initial condition
 # (see Θ_conservative below) rather than assuming uniform 4 °C.
-const CSV_FILE = "./data/lake_superior_eastern_mooring_winter_start_dates.csv"
+const CSV_FILE = joinpath(@__DIR__, "..", "..", "data",
+                          "lake_superior_eastern_mooring_winter_start_dates.csv")
 
 function read_isothermal_date(csv_file, year)
     return open(csv_file) do f
@@ -262,7 +263,8 @@ const SW_ZETA2 = 23.0   # m — e-folding depth of the long (visible) band
 # the measured (`direct`) and COARE-bulk-from-wind (`coare_wind`) flux variants.
 # wind_direction is shared (no *_coare_wind variant): coare_wind changes only the
 # stress magnitude, not its direction.
-const GLEN_FILE = "./data/US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc"
+const GLEN_FILE = joinpath(@__DIR__, "..", "..", "data", "GLEN",
+                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc")
 
 # Variable names that differ between the two forcing sources.
 const VAR_SUFFIX = FORCING_SOURCE == "direct" ? "" : "_coare_wind"
@@ -469,7 +471,7 @@ const f₀  = 2 * Ω * sind(lat)
 # observed sensor profile at that time (natural cubic spline in depth, with
 # *constant* extrapolation above the shallowest and below the deepest sensor,
 # rather than a polynomial blow-up outside the sensor range).
-const OBS_DIR = "./data/Austin2023"
+const OBS_DIR = joinpath(@__DIR__, "..", "..", "data", "Austin2023")
 t2dt_obs(t::Real) = DateTime(2000, 1, 1) + Millisecond(round(Int64, (t - 730486.0) * 86_400_000.0))
 
 function natural_cubic_spline(x::Vector{Float64}, y::Vector{Float64})
@@ -730,7 +732,7 @@ else
     closure_specs
 end
 
-const OUTPUT_PATH = joinpath(@__DIR__, "..", "data", "TURB_outputs",
+const OUTPUT_PATH = joinpath(@__DIR__, "..", "..", "data", "TURB_outputs",
                              "southern_mooring_GLEN_forced", "winter$(winter_year)")
 
 for (closure_name, make_closure) in active_specs

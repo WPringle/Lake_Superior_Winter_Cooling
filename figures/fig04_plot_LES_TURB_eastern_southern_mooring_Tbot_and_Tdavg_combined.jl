@@ -39,14 +39,13 @@ const TURB_DIR    = joinpath(@__DIR__, "..", "data", "TURB_outputs", "eastern_mo
 const TURB_DIR_SM = joinpath(@__DIR__, "..", "data", "TURB_outputs", "southern_mooring_GLEN_forced")
 const LES_DIR  = joinpath(@__DIR__, "..", "data", "LES_outputs", "eastern_mooring_GLEN")
 const LES_STEM = "Lxy256_Lz212_Nxy128_Nz106"
-const OBS_DIR  = "/lcrc/project/HSOFS_Ensemble/COMPASS_GLM/Austin2023"
+const OBS_DIR  = joinpath(@__DIR__, "..", "data", "Austin2023")
 FIGURE_DIR     = joinpath(@__DIR__, "..", "figures")
 mkpath(FIGURE_DIR)
 
-const GLEN_FILE = "/lcrc/project/HSOFS_Ensemble/COMPASS_GLM/GLEN/" *
-                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc"
-const CSV_FILE  = joinpath(@__DIR__, "..", "figure_data",
-                          "lake_superior_eastern_mooring",
+const GLEN_FILE = joinpath(@__DIR__, "..", "data", "GLEN",
+                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc")
+const CSV_FILE  = joinpath(@__DIR__, "..", "data",
                           "lake_superior_eastern_mooring_winter_start_dates.csv")
 
 const TBOT_XTICKS = collect(0:10:60)
