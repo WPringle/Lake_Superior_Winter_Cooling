@@ -40,7 +40,7 @@ _your journal reference_
 ## Reproduce my experiment
 1. Install the software components required to conduct the experiment from [contributing modeling software](#contributing-modeling-software)
 2. Download and add supporting [input data](#input-data) into `data` directory required to conduct the experiment
-3. Run the following .jl scripts in the `scripts` directory (`TURB_experiment` and `LES_experiment`) diretly or adapt the PBS job scripts provided. 
+3. Run the Julia `.jl` scripts located in the `scripts` directory (`TURB_experiment` and `LES_experiment` subdirectories) directly or adapt the PBS job scripts provided to run through all the simulated experiments from the paper. 
 4. Download and unzip the [output data](#output-data) from my experiment to compare outputs to those from the publication
 
 ## Reproduce my figures
