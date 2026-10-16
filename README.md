@@ -39,14 +39,8 @@ _your journal reference_
 
 ## Reproduce my experiment
 1. Install the software components required to conduct the experiment from [contributing modeling software](#contributing-modeling-software)
-2. Download and install the supporting [input data](#input-data) required to conduct the experiment
-3. Run the following scripts in the `workflow` directory to re-create this experiment:
-
-| Script Name | Description | How to Run |
-| --- | --- | --- |
-| `step_one.py` | Script to run the first part of my experiment | `python3 step_one.py -f /path/to/inputdata/file_one.csv` |
-| `step_two.py` | Script to run the second part of my experiment | `python3 step_two.py -o /path/to/my/outputdir` |
-
+2. Download and add supporting [input data](#input-data) into `data` directory required to conduct the experiment
+3. Run the following .jl scripts in the `scripts` directory (`TURB_experiment` and `LES_experiment`) diretly or adapt the PBS job scripts provided. 
 4. Download and unzip the [output data](#output-data) from my experiment to compare outputs to those from the publication
 
 ## Reproduce my figures
