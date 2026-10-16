@@ -40,11 +40,15 @@ _your journal reference_
 ## Reproduce my experiment
 1. Install the software components required to conduct the experiment from [contributing modeling software](#contributing-modeling-software)
 2. Download and add supporting [input data](#input-data) into `data` directory required to conduct the experiment
-3. Run the Julia `.jl` scripts located in the `scripts` directory (`TURB_experiment` and `LES_experiment` subdirectories) directly or adapt the PBS job scripts provided to run through all the simulated experiments from the paper. 
+3. Run the Julia `.jl` scripts located in the `scripts` directory (`TURB_experiment` (vertical mixing column model) and `LES_experiment` subdirectories) directly or adapt the PBS job scripts provided to run through all the simulated experiments from the paper. 
 4. Download and unzip the [output data](#output-data) from my experiment to compare outputs to those from the publication
 
 ## Reproduce my figures
-Use the scripts found in the `figures` directory to reproduce the figures used in this publication.
+Use the Julia `.jl` scripts found in the `figures` directory to reproduce the figures used in this publication.
+Filenames of the scripts are numbered to match the figure numbers from the paper.
+
+## Preprocessing of Input Data
+The user can also run the following scripts to pre-process the subsurface mooring and surface flux [input data](#input-data), though we already provide them in data directory here:
 
 | Figure Number(s) | Script Name | Description | How to Run |
 | --- | --- | --- | --- |
