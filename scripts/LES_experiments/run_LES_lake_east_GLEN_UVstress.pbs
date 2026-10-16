@@ -1,0 +1,63 @@
+#!/bin/bash
+#PBS -N LES_lake_east_GLEN_UVstress
+#PBS -A ACCOUNT
+#PBS -r y
+#PBS -l select=1
+#PBS -l walltime=72:00:00
+#PBS -l filesystems=??
+#PBS -q QUEUE
+#PBS -o logs/LES_lake_east_GLEN_UVstress.out
+#PBS -e logs/LES_lake_east_GLEN_UVstress.err
+
+cd ${PBS_O_WORKDIR}
+mkdir -p logs
+
+# Julia setup
+JULIA=/soft/applications/julia/julia_binaries/julia-1.10/bin/julia
+PROJECT_DIR=PROJ_DIR
+
+# an environment for CUDA.jl for the CUDA-13 driver on A100 nodes
+LES_ENV=${PROJECT_DIR}/LES_experiments/les_env
+
+# Let CUDA.jl use its own artifact-based runtime
+export JULIA_LOAD_PATH="${LES_ENV}:@stdlib"
+
+# Output directory
+OUTPUT_DIR=${PROJECT_DIR}/data/LES_output/eastern_mooring_GLEN
+mkdir -p ${OUTPUT_DIR}
+
+# Instantiate project dependencies once before launching experiments
+#${JULIA} --project=${LES_ENV} -e 'using Pkg; Pkg.instantiate()'
+
+#####
+##### Eastern mooring, directional (UV-stress), all 5 winter years x both
+##### forcing sources (direct, coare_wind) = 10 runs.  No bottom drag (Cd=0,
+##### free-slip), no subgrid closure (resolved LES, WENO9 advection — the
+##### script's defaults).  Only 4 GPUs/node, so runs are launched in batches of
+##### 4, waiting for each batch to finish before starting the next.
+#####
+
+SCRIPT=${PROJECT_DIR}/LES_experiments/LES_lake_superior_eastern_GLEN_UVstress_gpu.jl
+COMMON_ARGS="--Lz 212 --sim_days 60 --file_location ${OUTPUT_DIR}"
+
+YEARS=(2009 2010 2011 2014 2015)
+SOURCES=(direct coare_wind)
+
+GPU=0
+for YEAR in "${YEARS[@]}"; do
+    for SRC in "${SOURCES[@]}"; do
+        CUDA_VISIBLE_DEVICES=${GPU} ${JULIA} --project=${LES_ENV} ${SCRIPT} \
+            ${YEAR} --forcing_source ${SRC} ${COMMON_ARGS} \
+            > logs/LES_lake_east_GLEN_UVstress_${SRC}_${YEAR}.log 2>&1 &
+
+        GPU=$(( (GPU + 1) % 4 ))
+        if [ "${GPU}" -eq 0 ]; then
+            echo "Batch of 4 launched, waiting..."
+            wait
+        fi
+    done
+done
+
+echo "Waiting for final (partial) batch..."
+wait
+echo "All 10 eastern mooring experiments finished."

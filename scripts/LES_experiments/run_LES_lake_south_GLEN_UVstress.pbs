@@ -1,0 +1,64 @@
+#!/bin/bash
+#PBS -N LES_lake_south_GLEN_UVstress
+#PBS -A ACCOUNT
+#PBS -r y
+#PBS -l select=1
+#PBS -l walltime=24:00:00
+#PBS -l filesystems=??
+#PBS -q QUEUE
+#PBS -o logs/LES_lake_south_GLEN_UVstress.out
+#PBS -e logs/LES_lake_south_GLEN_UVstress.err
+
+cd ${PBS_O_WORKDIR}
+mkdir -p logs
+
+# Julia setup
+JULIA=/soft/applications/julia/julia_binaries/julia-1.10/bin/julia
+PROJECT_DIR=PROJ_DIR
+
+# an environment for CUDA.jl for the CUDA-13 driver on A100 nodes
+LES_ENV=${PROJECT_DIR}/LES_experiments/les_env
+
+# Let CUDA.jl use its own artifact-based runtime
+export JULIA_LOAD_PATH="${LES_ENV}:@stdlib"
+
+# Output directory
+OUTPUT_DIR=${PROJECT_DIR}/data/LES_output/southern_mooring_GLEN
+mkdir -p ${OUTPUT_DIR}
+
+# Instantiate project dependencies once before launching experiments
+#${JULIA} --project=${LES_ENV} -e 'using Pkg; Pkg.instantiate()'
+
+#####
+##### Southern mooring, directional (UV-stress), both winter years x both
+##### forcing sources (direct, coare_wind) = 4 runs, one per GPU.  No bottom
+##### drag (Cd=0, free-slip), no subgrid closure (resolved LES, WENO9
+##### advection — the script's defaults).  Lz is auto (2010->380 m,
+##### 2011->384 m) and the initial condition is the observed Southern Mooring
+##### profile (2010 dep lifted up 20 m).
+#####
+
+SCRIPT=${PROJECT_DIR}/LES_experiments/LES_lake_superior_southern_GLEN_UVstress_gpu.jl
+COMMON_ARGS="--sim_days 60 --file_location ${OUTPUT_DIR}"
+
+YEARS=(2010 2011)
+SOURCES=(direct coare_wind)
+
+GPU=0
+for YEAR in "${YEARS[@]}"; do
+    for SRC in "${SOURCES[@]}"; do
+        CUDA_VISIBLE_DEVICES=${GPU} ${JULIA} --project=${LES_ENV} ${SCRIPT} \
+            ${YEAR} --forcing_source ${SRC} ${COMMON_ARGS} \
+            > logs/LES_lake_south_GLEN_UVstress_${SRC}_${YEAR}.log 2>&1 &
+
+        GPU=$(( (GPU + 1) % 4 ))
+        if [ "${GPU}" -eq 0 ]; then
+            echo "Batch of 4 launched, waiting..."
+            wait
+        fi
+    done
+done
+
+echo "Waiting for final (partial) batch..."
+wait
+echo "All 4 southern mooring experiments finished."
