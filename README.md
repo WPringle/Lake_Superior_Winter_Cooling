@@ -6,7 +6,7 @@
 
 **Drivers of Deep-Water Cooling and Model Bias in Lake Superior**
 
-William J. Pringle<sup>1\*</sup>, [GLEAM Team 1](https://compass.pnnl.gov/GLM/Team)<sup>1,2,3</sup>
+William J. Pringle<sup>1\*</sup>, [COMPASS-GLM Team 1](https://compass.pnnl.gov/GLM/Team)<sup>1,2,3</sup>
 
 <sup>1 </sup>Environmental Science Division, Argonne National Laboratory, Lemont, IL, USA.
 <sup>2 </sup>Department of Civil, Environmental and Geospatial Engineering, Michigan Technological University, Houghton, MI, USA.
@@ -15,10 +15,10 @@ William J. Pringle<sup>1\*</sup>, [GLEAM Team 1](https://compass.pnnl.gov/GLM/Te
 \* corresponding author:  wpringle@anl.gov
 
 ## Abstract
-The transition from fall overturn to winter stratification influences subsequent ice formation and spring warming timing in deep dimictic lakes. We investigate the drivers of modeled deep-water temperature bias during this transition in Lake Superior using observations from two subsurface moorings and high-quality surface flux measurements. Large-eddy simulations (LES), a $k-\varepsilon$ turbulence-closure column model, and an analytical bottom-temperature model are evaluated over 60-day winter periods. At the 212-m Eastern Mooring, modeled temperature profiles and bottom-temperature evolution generally agree well with observations, although the hydrodynamic models, particularly LES, underestimate mixing. Including thermobaricity and accurate wind direction improves the simulated thermal structure and reduces deep-water warm bias. At the 384-m Southern Mooring, substantial warm biases persist, indicating that surface forcing and vertical mixing alone are insufficient. Horizontal processes associated with nearby steep bathymetry may be important. Results highlight the sensitivity of winter stratification to wind forcing, thermobaricity, and three-dimensional lake dynamics.
+The transition from fall overturn to winter stratification governs ice formation and spring warming timing in deep dimictic lakes. Here, we investigate the drivers of deep-water warm biases reported in prior lake modeling studies during this transition in Lake Superior using subsurface mooring observations and high-quality surface flux measurements. Large-eddy simulations, a k−ε column model, and a one-dimensional analytical model were evaluated over 60-day periods. At the 212-m Eastern Mooring, incorporating thermobaricity and realistic surface flux forcing largely resolves the warm bias, though deep-water mixing differences emerge between models and with wind direction. In contrast, at the 384-m Southern Mooring, warm biases persist across all models; applied surface cooling rates prove insufficient to match observed water-column cooling. We hypothesize that horizontal processes along steep bathymetric troughs, absent in one-dimensional frameworks, drive this discrepancy. Results highlight the sensitivity of winter stratification to cooling rates, wind forcing, thermobaricity and, potentially, three-dimensional dynamics.
 
 ## Journal reference
-_your journal reference_
+- Pringle, W. J. et al. Drivers of Deep-Water Winter Cooling and Model Bias in Lake Superior. TBD
 
 ## Code reference
 - Pringle, W. J. (2026). Lake_Superior_Winter_Cooling [Software]. Zenodo. https://doi.org/some-doi-number
