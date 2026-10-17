@@ -40,7 +40,7 @@ It is also possible to run the following scripts to preprocess the raw subsurfac
 
 
 ### Output data
-- Pringle, W. J. (2026). My output dataset name [Data set]. Zenodo. https://doi.org/some-doi-number
+- Pringle, W. J. (2026). Model Outputs for "Drivers of Deep-Water Cooling and Model Bias in Lake Superior"  [Data set]. Zenodo. https://doi.org/10.5281/zenodo.23429567
 
 ## Contributing modeling software
 | Model | Version | Code | Documentation |
