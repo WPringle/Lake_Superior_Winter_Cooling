@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/265254045.svg)](https://zenodo.org/doi/10.5281/zenodo.10442485)
+[![DOI](https://zenodo.org/badge/265254045.svg)](https://doi.org/10.5281/zenodo.23429888)
 
 # Pringle-etal_2026_GRL
 
@@ -21,7 +21,7 @@ The transition from fall overturn to winter stratification governs ice formation
 - Pringle, W. J. et al. Drivers of Deep-Water Winter Cooling and Model Bias in Lake Superior. TBD
 
 ## Code reference
-- Pringle, W. J. (2026). Lake_Superior_Winter_Cooling [Software]. Zenodo. https://doi.org/some-doi-number
+- Pringle, W. J. (2026). Metarepository for "Drivers of Deep-Water Winter Cooling and Model Bias in Lake Superior" [Metarepository]. Zenodo. https://doi.org/10.5281/zenodo.23429888
 
 ## Data reference
 
