@@ -29,6 +29,16 @@ _your journal reference_
 - Austin, J., & Elmer, C (2023). Lake Superior moored temperature and currents, Sep 2005-May 2015 [Data set]. University Digital Conservancy. https://doi.org/10.13020/zqw9-mk81
 - Spence, C., Lenters, J., & Nicholls, E. (2024). US-GL1: Stannard Rock, 2008 - 2022 [Data set]. Ameriflux. https://ameriflux.lbl.gov/sites/siteinfo/US-GL1
 
+### Preprocessing
+Input data has been preprocessed and added to `data` directory.
+It is also possible to run the following scripts to preprocess the raw subsurface mooring and surface flux [input data](#input-data), e.g., if modification to preprocessing is desired.
+
+| Script Name | Description | How to Run |
+| --- | --- | --- |
+| `scripts/fill_fluxes.py` | Gap-fills momentum and turbulent (latent/sensible) heat fluxes in a GLEN quality-controlled half-hourly NetCDF file, using short-gap time interpolation, COARE/Monin-Obukhov bulk transfer, and PCHIP/climatology fills for the meteorological drivers. Observed values are never altered; a companion `*_fill_method` flag variable records the provenance of every point. | `python3 fill_fluxes.py [input.nc] [output.nc]` (defaults to the Stannard Rock file if no arguments given) |
+| `scripts/process_lake_superior_southern_eastern_moorings.jl` | Analyzes Lake Superior Southern and Eastern Mooring observations: for each mooring, finds the last isothermal ~4°C state in Nov-Jan, then extracts and plots temperature profiles at +1 and +2 months, and regenerates the Southern Mooring's observed mixed-layer depth re-windowed at the Eastern Mooring's start dates. | `julia process_lake_superior_southern_eastern_moorings.jl` |
+
+
 ### Output data
 - Pringle, W. J. (2026). My output dataset name [Data set]. Zenodo. https://doi.org/some-doi-number
 
@@ -39,19 +49,9 @@ _your journal reference_
 
 ## Reproduce my experiment
 1. Install the software components required to conduct the experiment from [contributing modeling software](#contributing-modeling-software)
-2. Download and add supporting [input data](#input-data) into `data` directory required to conduct the experiment
+2. Optional: Download and preprocess raw [input data](#input-data) required to conduct the experiment (already in `data` directory).
 3. Run the Julia `.jl` scripts located in the `scripts` directory (`TURB_experiment` (vertical mixing column model) and `LES_experiment` subdirectories) directly or adapt the PBS job scripts provided to run through all the simulated experiments from the paper. 
 4. Download and unzip the [output data](#output-data) from my experiment to compare outputs to those from the publication
 
 ## Reproduce my figures
-Use the Julia `.jl` scripts found in the `figures` directory to reproduce the figures used in this publication.
-Filenames of the scripts are numbered to match the figure numbers from the paper.
-
-## Preprocessing of Input Data
-The user can also run the following scripts to pre-process the subsurface mooring and surface flux [input data](#input-data), though we already provide them in data directory here:
-
-| Figure Number(s) | Script Name | Description | How to Run |
-| --- | --- | --- | --- |
-| 1, 2 | `generate_plot.py` | Description of figure, ie. "Plots the difference between our two scenarios" | `python3 generate_plot.py -input /path/to/inputs -output /path/to/outuptdir` |
-| 3 | `generate_figure.py` | Description of figure, ie. "Shows how the mean and peak differences are calculated" | `python3 generate_figure.py -input /path/to/inputs -output /path/to/outuptdir` |
-
+Use the Julia `.jl` scripts found in the `figures` directory to reproduce the figures used in this publication. Filenames of the scripts are numbered to match the figure numbers from the paper.
