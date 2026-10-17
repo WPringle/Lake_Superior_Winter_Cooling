@@ -35,8 +35,8 @@ It is also possible to run the following scripts to preprocess the raw subsurfac
 
 | Script Name | Description | How to Run |
 | --- | --- | --- |
-| `scripts/fill_fluxes.py` | Gap-fills momentum and turbulent (latent/sensible) heat fluxes in a GLEN quality-controlled half-hourly NetCDF file, using short-gap time interpolation, COARE/Monin-Obukhov bulk transfer, and PCHIP/climatology fills for the meteorological drivers. Observed values are never altered; a companion `*_fill_method` flag variable records the provenance of every point. | `python3 fill_fluxes.py [input.nc] [output.nc]` (defaults to the Stannard Rock file if no arguments given) |
-| `scripts/process_lake_superior_southern_eastern_moorings.jl` | Analyzes Lake Superior Southern and Eastern Mooring observations: for each mooring, finds the last isothermal ~4°C state in Nov-Jan, then extracts and plots temperature profiles at +1 and +2 months, and regenerates the Southern Mooring's observed mixed-layer depth re-windowed at the Eastern Mooring's start dates. | `julia process_lake_superior_southern_eastern_moorings.jl` |
+| `scripts/fill_fluxes.py` | Gap-fills surface flux data | `python3 fill_fluxes.py [input.nc] [output.nc]` |
+| `scripts/process_lake_superior_southern_eastern_moorings.jl` | Processes mooring temperature profiles | `julia process_lake_superior_southern_eastern_moorings.jl` |
 
 
 ### Output data
