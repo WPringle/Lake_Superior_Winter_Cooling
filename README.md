@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/265254045.svg)](https://doi.org/10.5281/zenodo.23429888)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23429888.svg)](https://doi.org/10.5281/zenodo.23429888)
 
 # Pringle-etal_2026_JGR:Oceans
 
