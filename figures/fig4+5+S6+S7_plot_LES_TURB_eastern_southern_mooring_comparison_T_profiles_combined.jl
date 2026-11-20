@@ -1,8 +1,14 @@
 #####
-##### GLEN-forced Eastern + Southern Mooring — LES vs TURB k-ε temperature comparison (30 & 60-day combined)
+##### GLEN-forced Eastern + Southern Mooring — LES vs TURB k-ε temperature comparison (two-day combined)
 #####
-# Combined figure showing both 30-day (rows 1-2) and 60-day (rows 3-4) snapshots.
-# Subtitles "30-day" and "60-day" appear above rows 1 and 3 in blue.
+# Combined figure showing two snapshot days (default 30 & 60), one per pair of rows.
+# Subtitles "t = <day1> days" and "t = <day2> days" appear above the two sections in blue.
+#
+# Usage (arguments may be given in any order; both are optional):
+#   julia plot_..._combined.jl [direct|coare_wind] [day1 day2]
+#   day ∈ {1, 15, 30, 45, 60}; defaults: direct 30 60
+#   e.g. julia plot_..._combined.jl coare_wind 15 30
+#
 # For detailed description of the comparison and annotations, see
 # plot_LES_TURB_eastern_southern_mooring_comparison_T_profiles.jl
 
@@ -34,9 +40,31 @@ const T_MD      = gsw_t_from_ct(S_lake, gsw_ct_maxdensity(S_lake, 0.0), 0.0) + 2
 
 m_rate(Qh_Wm2, QU, H) = abs(QU)^1.5 * T_MD / (g_grav * (Qh_Wm2 / (ρ₀ * cₚ)) * H)
 
-const FORCING_SOURCE = length(ARGS) >= 1 ? ARGS[1] : "direct"
-FORCING_SOURCE ∈ ("direct", "coare_wind") ||
-    error("FORCING_SOURCE must be \"direct\" or \"coare_wind\", got \"$(FORCING_SOURCE)\"")
+const VALID_DAYS = (1, 15, 30, 45, 60)
+const VALID_SOURCES = ("direct", "coare_wind")
+
+# Parse ARGS in any order: a forcing-source keyword and/or day values.
+# Defaults: "direct" and days 30 & 60.
+function parse_args(args)
+    src  = "direct"
+    days = Int[]
+    for a in args
+        if a in VALID_SOURCES
+            src = a
+        elseif (d = tryparse(Int, a)) !== nothing
+            d in VALID_DAYS || error("day must be one of $(VALID_DAYS), got $(d)")
+            d in days && error("day $(d) given more than once")
+            push!(days, d)
+        else
+            error("unrecognized argument \"$(a)\": expected one of $(VALID_SOURCES) or a day in $(VALID_DAYS)")
+        end
+    end
+    isempty(days) && (days = [30, 60])
+    length(days) == 2 || error("exactly two days are required, got $(length(days))")
+    return src, days
+end
+
+const FORCING_SOURCE, DAYS = parse_args(ARGS)
 const SRC_TAG = FORCING_SOURCE == "direct" ? "" : "_coare_wind"
 
 const TURB_DIR    = joinpath(@__DIR__, "..", "data", "TURB_outputs", "eastern_mooring_GLEN_forced")
@@ -70,9 +98,10 @@ function les_file_sm_lookup(year)
     return nothing
 end
 
-const GLEN_FILE = joinpath(@__DIR__, "..", "data", "GLEN",
-                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc")
-const CSV_FILE  = joinpath(@__DIR__, "..", "data",
+const GLEN_FILE = "/lcrc/project/HSOFS_Ensemble/COMPASS_GLM/GLEN/" *
+                  "US_StannardRockSuperior_processed_halfhourly_qc_gapfilled.nc"
+const CSV_FILE  = joinpath(@__DIR__, "..", "figure_data",
+                          "lake_superior_eastern_mooring",
                           "lake_superior_eastern_mooring_winter_start_dates.csv")
 
 function read_isothermal_date(csv_file, year)
@@ -140,7 +169,6 @@ obs_profile_for_day(obs, day) = day == 1  ? obs.Tday1_raw :
 
 winter_years    = [2009, 2010, 2011, 2014, 2015]
 winter_years_sm = [2010, 2011]
-const DAYS = [30, 60]
 
 const VARIANTS = [
     (uv_tag = "_UVstress", eos_tag = "",                        color = :steelblue4, label = "k-ε",                               linestyle = :solid),
@@ -390,10 +418,10 @@ function plot_combined_profiles()
     fig = Figure(size = (195 * NCOLS + 40, 210 * 4 + 180),
                  fontsize = 11, figure_padding = (6, 10, 6, 4))
 
-    # Rows 1,2 hold the 30-day panels, rows 4,5 the 60-day panels; rows 0 and 3
-    # are dedicated (auto-sized) rows for the "t = 30/60 days" subtitles.
+    # Rows 1,2 hold the first day's panels, rows 4,5 the second day's panels; rows 0 and 3
+    # are dedicated (auto-sized) rows for the "t = <day> days" subtitles.
     day_starts = [1, 4]
-    day_labels = ["t = 30 days", "t = 60 days"]
+    day_labels = ["t = $(DAYS[1]) days", "t = $(DAYS[2]) days"]
 
     all_axes = Axis[]
 
@@ -727,7 +755,7 @@ function plot_combined_profiles()
     # top/bottom margin left by the fixed Figure size vs. the Aspect-sized rows).
     resize_to_layout!(fig)
 
-    outfile = joinpath(FIGURE_DIR, "LES_TURB_eastern_southern_mooring_comparison_T_profiles_combined_$(FORCING_SOURCE).pdf")
+    outfile = joinpath(FIGURE_DIR, "LES_TURB_eastern_southern_mooring_comparison_T_profiles_combined_$(DAYS[1])_$(DAYS[2])_$(FORCING_SOURCE).pdf")
     save(outfile, fig)
     @info "Saved → $outfile"
 end

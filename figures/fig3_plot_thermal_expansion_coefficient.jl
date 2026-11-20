@@ -57,27 +57,57 @@ T_range = range(0.0, T_MD; length = 400)
 const α0 = gsw_alpha_wrt_t_exact(S_lake, 0.0, P_SFC)   # α at T = 0 °C, called out on the y-axis
 
 with_theme(theme_latexfonts()) do
-    fig = Figure(size = (340, 280), fontsize = 12, figure_padding = (6, 36, 6, 6))
+    fig = Figure(size = (340, 274), fontsize = 12, figure_padding = (6, 12, 6, 2))
 
     # Round background ticks plus the exact α(0 °C) value called out explicitly.
     ytick_vals = sort(unique([α0, -5e-5, -2.5e-5, 0.0]))
     ytick_labs = [v == 0.0 ? L"0" : latexstring(sci_latex(v)) for v in ytick_vals]
 
     # Round background ticks plus each curve's own T_MD (α = 0) value called out explicitly.
-    md_symbols = Dict(T_MD => "T_{\\mathrm{MD}}^{\\mathrm{surf}}", T_MD_EM => "T_{\\mathrm{MD}}^{\\mathrm{EM}}",
+    md_symbols = Dict(T_MD => "T_{\\mathrm{MD}}^{\\mathrm{sfc}}", T_MD_EM => "T_{\\mathrm{MD}}^{\\mathrm{EM}}",
                        T_MD_SM => "T_{\\mathrm{MD}}^{\\mathrm{SM}}")
     xtick_vals = sort(unique(vcat(0:1:floor(Int, T_MD) - 1, T_MD, T_MD_EM, T_MD_SM)))
-    xtick_labs = [haskey(md_symbols, v) ? latexstring(md_symbols[v], " = ", round(v; digits = 2)) :
-                                           latexstring(round(Int, v))
-                  for v in xtick_vals]
+    int_vals   = filter(v -> !haskey(md_symbols, v), xtick_vals)
 
     ax = Axis(fig[1, 1];
-              xlabel = L"T \; (^\circ\mathrm{C})",
               ylabel = L"\alpha \; (\mathrm{K^{-1}})",
-              xticks = (xtick_vals, xtick_labs),
-              xticklabelsize = 8,
-              xticklabelrotation = pi / 6,
+              xticks = (xtick_vals, fill("", length(xtick_vals))),
+              xticklabelsvisible = false,
               yticks = (ytick_vals, ytick_labs))
+
+    # Thin strip below the main axis carrying the x tick labels. The three T_MD values
+    # lie within ~0.8 °C, so their labels are staggered here (straddling their tick
+    # locations) rather than drawn as crowded rotated tick labels.
+    ax_x = Axis(fig[2, 1];
+                xticks = (int_vals, fill("", length(int_vals))),
+                xticklabelsvisible = false,
+                xticksvisible = false, xgridvisible = false,
+                yticksvisible = false, yticklabelsvisible = false, ygridvisible = false,
+                topspinevisible = false, leftspinevisible = false, rightspinevisible = false,
+                bottomspinevisible = false,
+                limits = (nothing, (0, 1)))
+    linkxaxes!(ax, ax_x)
+    rowgap!(fig.layout, 1, 0)
+    rowsize!(fig.layout, 2, Fixed(62))
+
+    # x tick labels drawn as text so they share the strip's top edge with the T_MD labels.
+    xlabsize = ax.yticklabelsize[]
+    for v in int_vals
+        text!(ax_x, v, 1.0; text = latexstring(round(Int, v)), space = :data,
+              rotation = pi / 6, align = (:right, :top), offset = (0, -4), fontsize = xlabsize)
+    end
+
+    # Pixel nudges (x, y) that stagger neighbouring T_MD labels apart.
+    md_offsets = Dict(T_MD_SM => (0, -2), T_MD_EM => (0, -10), T_MD => (0, -14))
+    for v in (T_MD_SM, T_MD_EM, T_MD)
+        text!(ax_x, v, 1.0; text = latexstring(md_symbols[v], " = ", round(v; digits = 2)),
+              space = :data, rotation = pi / 4, align = (:right, :top),
+              offset = md_offsets[v], fontsize = xlabsize)
+    end
+
+    # x-axis title placed in the strip, shifted left of centre and lifted toward the tick labels.
+    text!(ax_x, 1.6, 0.0; text = L"T \; (^\circ\mathrm{C})", space = :data,
+          align = (:center, :bottom), offset = (0, 20), fontsize = xlabsize)
 
     hlines!(ax, [0.0]; color = :gray60, linewidth = 1.0, linestyle = :dash)
     l_sfc = lines!(ax, T_range, α; color = :steelblue4, linewidth = 2.5)
@@ -99,7 +129,7 @@ with_theme(theme_latexfonts()) do
         [L"p = 0 \; \mathrm{dbar} \; (\mathrm{surface})",
          latexstring(@sprintf("p = %.0f", P_EM), "\\;\\mathrm{dbar}\\;(H=212\\,\\mathrm{m},\\,\\mathrm{EM})"),
          latexstring(@sprintf("p = %.0f", P_SM), "\\;\\mathrm{dbar}\\;(H=384\\,\\mathrm{m},\\,\\mathrm{SM})")];
-        position = :rb, labelsize = 9, framevisible = false, patchsize = (16, 8))
+        position = :rb, labelsize = 10, framevisible = false, patchsize = (16, 8))
 
     outfile = joinpath(FIGURE_DIR, "thermal_expansion_coefficient_TEOS10.pdf")
     save(outfile, fig)
